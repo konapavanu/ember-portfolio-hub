@@ -60,26 +60,30 @@ const Index = () => {
     el.style.setProperty("--x", `${x}px`);
     el.style.setProperty("--y", `${y}px`);
   };
-
 const onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
   e.preventDefault();
+
+    // Save the form element before async call
+  const formElement = e.currentTarget;
 
   emailjs.sendForm(
     'service_isz4uzg',       // your service ID
     'template_vd8m0qe',      // your template ID
-    e.currentTarget,         // form element
+    formElement,          // form element
     'Rfk66qRaHbNFfwtoj'           // your EmailJS user/public key here
   ).then(() => {
     toast({
       title: "Message sent!",
       description: "Thanks for reaching out. I'll get back to you soon."
     });
-    (e.currentTarget as HTMLFormElement).reset();
-  }).catch(() => {
+    formElement.reset(); // reset safely
+  }).catch((error) => {
+    console.error("EmailJS error:", error);
     toast({
       title: "Oops!",
       description: "Something went wrong. Please try again later.",
-      status: "error"
+      variant: "destructive", // use variant instead of status if shadcn toast
+
     });
   });
 };
@@ -164,11 +168,13 @@ const onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
 
               <div className="grid grid-cols-1 gap-4">
                 <article className="bg-card/50 border border-border/60 rounded-xl p-5">
-                  <h1 className="font-large ">Kona Pavankumar</h1>
+                  <h1 className="font-large "><b>Kona Pavankumar </b></h1>
                   <h3 className="font-medium mb-2">Education</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li><span className="text-foreground">B-tech. Computer Science</span> — Dadi Institute of Engineering and Technology (JNTU) (2021–2025)</li>
+                    <li><span className="text-foreground">B-Tech. Computer Science</span> — Dadi Institute of Engineering and Technology (JNTU) (2021–2025) - Graduated</li>
                     <li><span className="text-foreground">Python Full Stack course</span> —  Pyspiders(2025)</li>
+                    <li><span className="text-foreground">Skills</span> —  Python, Django, Html, CSS, Javascript, SQL, React.js</li>
+                    
                   </ul>
                 </article>
               </div>
@@ -226,6 +232,10 @@ const onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
                   <input required type="email" name="email" className="h-11 rounded-md bg-background border border-input px-3 outline-none focus-visible:ring-2 focus-visible:ring-ring" />
                 </label>
               </div>
+              <label className="grid gap-2 text-sm">
+                <span>Title</span>
+               <input required name="title" className="h-11 rounded-md bg-background border border-input px-3 outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+              </label>
               <label className="grid gap-2 text-sm">
                 <span>Message</span>
                 <textarea required name="message" rows={5} className="rounded-md bg-background border border-input p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring" />
