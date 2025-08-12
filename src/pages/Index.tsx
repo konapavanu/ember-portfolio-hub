@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import profileHero from "@/assets/profile-hero.jpg";
 import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import emailjs from 'emailjs-com';
 const projects = [{
   title: "Realtime Chat App",
   description: "WebSocket-powered chat with rooms, typing indicators, and message persistence.",
@@ -13,25 +14,25 @@ const projects = [{
   tags: ["React", "Recharts", "Tailwind"],
   link: "#"
 }, {
-  title: "Markdown Blog Engine",
-  description: "Static blog pipeline with MDX, search, and syntax highlighting.",
-  tags: ["MDX", "SEO", "Content"],
-  link: "#"
+  title: "Skin Disease Detection System",
+  description: "A machine learning model for skin disease classification using CNN and HSV-based features.",
+  tags: ["Python", "Machine Learning", "CNN","HSV"],
+  link: "https://github.com/konapavanu/skindisesedection02-project/tree/master"
 }, {
-  title: "Task Automation CLI",
-  description: "Node-based CLI to scaffold projects and automate releases.",
-  tags: ["Node", "CLI", "DX"],
-  link: "#"
+  title: "Emotion Detection from Text",
+  description: "NLP-based app to detect emotions from text with emoji/color support, deployed on Streamlit.",
+  tags: ["NLP", "Streamlit", "Scikit-learn"],
+  link: "https://github.com/konapavanu/emotion-detection-streamlit"
 }, {
   title: "Portfolio Generator",
   description: "Generate beautiful portfolios from JSON using templates.",
   tags: ["Templates", "SSR", "Design"],
   link: "#"
 }, {
-  title: "Image Optimizer",
-  description: "On-the-fly image transforms with caching and responsive sources.",
-  tags: ["Images", "CDN", "Perf"],
-  link: "#"
+  title: "Food App",
+  description: "A Django web application for browsing and ordering food online.",
+  tags: ["Python", "Django", "Html","CSS","Javascript"],
+  link: "https://github.com/konapavanu/food-django-app"
 }];
 const Index = () => {
   useEffect(() => {
@@ -59,14 +60,30 @@ const Index = () => {
     el.style.setProperty("--x", `${x}px`);
     el.style.setProperty("--y", `${y}px`);
   };
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
-    e.preventDefault();
+
+const onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
+  e.preventDefault();
+
+  emailjs.sendForm(
+    'service_isz4uzg',       // your service ID
+    'template_vd8m0qe',      // your template ID
+    e.currentTarget,         // form element
+    'Rfk66qRaHbNFfwtoj'           // your EmailJS user/public key here
+  ).then(() => {
     toast({
       title: "Message sent!",
       description: "Thanks for reaching out. I'll get back to you soon."
     });
     (e.currentTarget as HTMLFormElement).reset();
-  };
+  }).catch(() => {
+    toast({
+      title: "Oops!",
+      description: "Something went wrong. Please try again later.",
+      status: "error"
+    });
+  });
+};
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -124,8 +141,8 @@ const Index = () => {
               </div>
 
               <div className="flex items-center gap-5 text-muted-foreground">
-                <a href="#" aria-label="GitHub" className="hover-scale"><Github className="h-5 w-5" /></a>
-                <a href="#" aria-label="LinkedIn" className="hover-scale"><Linkedin className="h-5 w-5" /></a>
+                <a href="https://github.com/konapavanu" aria-label="GitHub" className="hover-scale"><Github className="h-5 w-5" /></a>
+                <a href="https://www.linkedin.com/in/pavan-kona/" aria-label="LinkedIn" className="hover-scale"><Linkedin className="h-5 w-5" /></a>
                 <a href="#contact" aria-label="Email" className="hover-scale"><Mail className="h-5 w-5" /></a>
               </div>
             </div>
@@ -147,21 +164,28 @@ const Index = () => {
 
               <div className="grid grid-cols-1 gap-4">
                 <article className="bg-card/50 border border-border/60 rounded-xl p-5">
+                  <h1 className="font-large ">Kona Pavankumar</h1>
                   <h3 className="font-medium mb-2">Education</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li><span className="text-foreground">B.Sc. Computer Science</span> — State University (2016–2020)</li>
-                    <li><span className="text-foreground">Full Stack Nanodegree</span> — Online Institute (2021)</li>
-                    <li><span className="text-foreground">Design Systems</span> — Professional Course (2022)</li>
+                    <li><span className="text-foreground">B-tech. Computer Science</span> — Dadi Institute of Engineering and Technology (JNTU) (2021–2025)</li>
+                    <li><span className="text-foreground">Python Full Stack course</span> —  Pyspiders(2025)</li>
                   </ul>
                 </article>
               </div>
             </div>
 
-            <div data-reveal className="opacity-0 translate-y-3">
-              <div className="relative mx-auto w-full max-w-md rounded-2xl overflow-hidden border border-border/60">
-                <img src={profileHero} alt="Developer portrait used again for the about section" loading="lazy" className="w-full h-full object-cover" />
-              </div>
-            </div>
+  <div data-reveal className="opacity-0 translate-y-3">
+   <div className="relative mx-auto w-40 sm:w-56 aspect-square rounded-full overflow-hidden border border-border/60 
+                  transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-xl hover:shadow-brand-1/40">
+    <img
+      src={profileHero}
+      alt="Developer portrait used again for the about section"
+      loading="lazy"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</div>
+
           </div>
         </section>
 
