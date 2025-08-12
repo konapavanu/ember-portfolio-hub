@@ -2,67 +2,56 @@ import { useEffect } from "react";
 import profileHero from "@/assets/profile-hero.jpg";
 import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-
-const projects = [
-  {
-    title: "Realtime Chat App",
-    description: "WebSocket-powered chat with rooms, typing indicators, and message persistence.",
-    tags: ["React", "TypeScript", "WebSocket"],
-    link: "#",
-  },
-  {
-    title: "E‑commerce Dashboard",
-    description: "Analytics, orders, and inventory with interactive charts and filters.",
-    tags: ["React", "Recharts", "Tailwind"],
-    link: "#",
-  },
-  {
-    title: "Markdown Blog Engine",
-    description: "Static blog pipeline with MDX, search, and syntax highlighting.",
-    tags: ["MDX", "SEO", "Content"],
-    link: "#",
-  },
-  {
-    title: "Task Automation CLI",
-    description: "Node-based CLI to scaffold projects and automate releases.",
-    tags: ["Node", "CLI", "DX"],
-    link: "#",
-  },
-  {
-    title: "Portfolio Generator",
-    description: "Generate beautiful portfolios from JSON using templates.",
-    tags: ["Templates", "SSR", "Design"],
-    link: "#",
-  },
-  {
-    title: "Image Optimizer",
-    description: "On-the-fly image transforms with caching and responsive sources.",
-    tags: ["Images", "CDN", "Perf"],
-    link: "#",
-  },
-];
-
+const projects = [{
+  title: "Realtime Chat App",
+  description: "WebSocket-powered chat with rooms, typing indicators, and message persistence.",
+  tags: ["React", "TypeScript", "WebSocket"],
+  link: "#"
+}, {
+  title: "E‑commerce Dashboard",
+  description: "Analytics, orders, and inventory with interactive charts and filters.",
+  tags: ["React", "Recharts", "Tailwind"],
+  link: "#"
+}, {
+  title: "Markdown Blog Engine",
+  description: "Static blog pipeline with MDX, search, and syntax highlighting.",
+  tags: ["MDX", "SEO", "Content"],
+  link: "#"
+}, {
+  title: "Task Automation CLI",
+  description: "Node-based CLI to scaffold projects and automate releases.",
+  tags: ["Node", "CLI", "DX"],
+  link: "#"
+}, {
+  title: "Portfolio Generator",
+  description: "Generate beautiful portfolios from JSON using templates.",
+  tags: ["Templates", "SSR", "Design"],
+  link: "#"
+}, {
+  title: "Image Optimizer",
+  description: "On-the-fly image transforms with caching and responsive sources.",
+  tags: ["Images", "CDN", "Perf"],
+  link: "#"
+}];
 const Index = () => {
   useEffect(() => {
     // Scroll reveal animations using IntersectionObserver
     const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.remove("opacity-0", "translate-y-3");
-            e.target.classList.add("animate-fade-in");
-            io.unobserve(e.target);
-          }
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.remove("opacity-0", "translate-y-3");
+          e.target.classList.add("animate-fade-in");
+          io.unobserve(e.target);
         }
-      },
-      { threshold: 0.1 }
-    );
-    els.forEach((el) => io.observe(el));
+      }
+    }, {
+      threshold: 0.1
+    });
+    els.forEach(el => io.observe(el));
     return () => io.disconnect();
   }, []);
-
-  const onHeroMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
+  const onHeroMove: React.MouseEventHandler<HTMLDivElement> = e => {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -70,13 +59,14 @@ const Index = () => {
     el.style.setProperty("--x", `${x}px`);
     el.style.setProperty("--y", `${y}px`);
   };
-
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    toast({ title: "Message sent!", description: "Thanks for reaching out. I'll get back to you soon." });
+    toast({
+      title: "Message sent!",
+      description: "Thanks for reaching out. I'll get back to you soon."
+    });
     (e.currentTarget as HTMLFormElement).reset();
   };
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -85,19 +75,16 @@ const Index = () => {
     url: "/",
     sameAs: ["https://github.com/", "https://www.linkedin.com/"]
   };
-
-  return (
-    <>
+  return <>
       {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+      __html: JSON.stringify(jsonLd)
+    }} />
 
       <header className="fixed top-0 inset-x-0 z-50 border-b border-border/60 bg-background/60 supports-[backdrop-filter]:backdrop-blur">
         <nav className="max-w-6xl mx-auto px-4">
           <div className="h-16 flex items-center justify-between">
-            <a href="#home" className="font-semibold tracking-tight story-link">Dev Portfolio</a>
+            <a href="#home" className="font-semibold tracking-tight story-link">Pavan Kona</a>
             <ul className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
               <li><a href="#home" className="hover-scale story-link">Home</a></li>
               <li><a href="#about" className="hover-scale story-link">About</a></li>
@@ -111,18 +98,11 @@ const Index = () => {
 
       <main id="home" className="min-h-screen bg-gradient-to-b from-background to-muted/10">
         {/* Hero */}
-        <section
-          aria-label="Hero"
-          onMouseMove={onHeroMove}
-          className="relative pt-32 pb-24 border-b border-border/60"
-        >
+        <section aria-label="Hero" onMouseMove={onHeroMove} className="relative pt-32 pb-24 border-b border-border/60">
           {/* Interactive glow following pointer */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-30"
-            style={{
-              background: "radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), hsl(var(--brand-2) / 0.15), transparent 40%)",
-            }}
-          />
+          <div className="pointer-events-none absolute inset-0 opacity-30" style={{
+          background: "radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), hsl(var(--brand-2) / 0.15), transparent 40%)"
+        }} />
 
           <div className="relative max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
             <div data-reveal className="opacity-0 translate-y-3">
@@ -135,17 +115,10 @@ const Index = () => {
               </p>
 
               <div className="flex items-center gap-4 mb-10">
-                <a
-                  href="/resume.pdf"
-                  download
-                  className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-medium text-foreground bg-gradient-to-r from-brand-1 to-brand-2 hover:from-brand-2 hover:to-brand-1 transition-colors shadow-[var(--shadow-elegant)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
+                <a href="/resume.pdf" download className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-medium text-foreground bg-gradient-to-r from-brand-1 to-brand-2 hover:from-brand-2 hover:to-brand-1 transition-colors shadow-[var(--shadow-elegant)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                   Download Resume
                 </a>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-medium border border-border hover:bg-muted/30 transition-colors"
-                >
+                <a href="#contact" className="inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-medium border border-border hover:bg-muted/30 transition-colors">
                   Contact Me
                 </a>
               </div>
@@ -158,14 +131,7 @@ const Index = () => {
             </div>
 
             <div data-reveal className="opacity-0 translate-y-3">
-              <div className="relative mx-auto w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-border/60 shadow-[var(--shadow-elegant)] hover-scale">
-                <img
-                  src={profileHero}
-                  alt="Professional headshot of a full stack web developer"
-                  loading="eager"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              
             </div>
           </div>
         </section>
@@ -193,12 +159,7 @@ const Index = () => {
 
             <div data-reveal className="opacity-0 translate-y-3">
               <div className="relative mx-auto w-full max-w-md rounded-2xl overflow-hidden border border-border/60">
-                <img
-                  src={profileHero}
-                  alt="Developer portrait used again for the about section"
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
+                <img src={profileHero} alt="Developer portrait used again for the about section" loading="lazy" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -209,25 +170,17 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-semibold mb-10">Recent Projects</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((p) => (
-                <article
-                  key={p.title}
-                  data-reveal
-                  className="opacity-0 translate-y-3 group bg-card/50 border border-border/60 rounded-xl p-6 hover:shadow-[var(--shadow-elegant)] transition-shadow"
-                >
+              {projects.map(p => <article key={p.title} data-reveal className="opacity-0 translate-y-3 group bg-card/50 border border-border/60 rounded-xl p-6 hover:shadow-[var(--shadow-elegant)] transition-shadow">
                   <div className="mb-4 h-36 rounded-lg bg-gradient-to-br from-brand-1/30 to-brand-2/30 border border-border/60 flex items-center justify-center">
                     <ExternalLink className="h-6 w-6 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </div>
                   <h3 className="font-medium mb-2">{p.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{p.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {p.tags.map((t) => (
-                      <span key={t} className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground border border-border/60">{t}</span>
-                    ))}
+                    {p.tags.map(t => <span key={t} className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground border border-border/60">{t}</span>)}
                   </div>
                   <a href={p.link} className="text-sm story-link">View project</a>
-                </article>
-              ))}
+                </article>)}
             </div>
           </div>
         </section>
@@ -267,8 +220,6 @@ const Index = () => {
       <footer className="border-t border-border/60 py-10 text-center text-sm text-muted-foreground">
         <p>© {new Date().getFullYear()} Full Stack Web Developer — Built with a modern dark theme.</p>
       </footer>
-    </>
-  );
+    </>;
 };
-
 export default Index;
