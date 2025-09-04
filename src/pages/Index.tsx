@@ -12,7 +12,7 @@ const projects = [{
   title: "E‑commerce Dashboard",
   description: "Analytics, orders, and inventory with interactive charts and filters.",
   tags: ["React", "Recharts", "Tailwind"],
-  link: "#"
+  link: "https://ecommerce-site-2-x4fe.onrender.com"
 }, {
   title: "Skin Disease Detection System",
   description: "A machine learning model for skin disease classification using CNN and HSV-based features.",
